@@ -6,9 +6,9 @@ modifying these stats is in place.
 
 These attributes are the following:
 
-* Intelligence (INT) - Affects nothing (not implemented).
-* Wisdom (WIS) - Affects nothing (not implemented).
-* Willpower (WIL) - Affects nothing (not implemented).
-* Arcane resistance (RES) - Affects nothing (not implemented).
+* Intelligence (INT) - Affects magic damage (not implemented).
+* Wisdom (WIS) - Affects mana amount (not implemented).
+* Willpower (WIL) - Affects mana regeneration speed (not implemented).
+* Arcane resistance (RES) - Affects magic resistance (not implemented).
 
 This module is intended to be extended by other modules for more complex interactions.
