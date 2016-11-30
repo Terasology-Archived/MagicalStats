@@ -30,7 +30,7 @@ public class OnMagicalStatsModifierAddedEvent implements Event {
     private EntityRef character;
 
     /** The magical stats modifier that was added. */
-    private MagicalStatsModifierComponent pStatsModifier;
+    private MagicalStatsModifierComponent mStatsModifier;
 
     /**
      * Create an instance of this event with the given instigator.
@@ -57,13 +57,13 @@ public class OnMagicalStatsModifierAddedEvent implements Event {
      *
      * @param instigator        Entity who added the modifier.
      * @param character         Entity that was affected.
-     * @param pStatsModifier    Physical stats modifier that was added.
+     * @param mStatsModifier    Physical stats modifier that was added.
      */
     public OnMagicalStatsModifierAddedEvent(EntityRef instigator, EntityRef character,
-                                            MagicalStatsModifierComponent pStatsModifier) {
+                                            MagicalStatsModifierComponent mStatsModifier) {
         this.instigator = instigator;
         this.character = character;
-        this.pStatsModifier = pStatsModifier;
+        this.mStatsModifier = mStatsModifier;
     }
 
     /**
@@ -89,7 +89,7 @@ public class OnMagicalStatsModifierAddedEvent implements Event {
      *
      * @return  The magical stats modifier.
      */
-    public MagicalStatsModifierComponent getPModifier() {
-        return pStatsModifier;
+    public MagicalStatsModifierComponent getMagicModifier() {
+        return mStatsModifier;
     }
 }

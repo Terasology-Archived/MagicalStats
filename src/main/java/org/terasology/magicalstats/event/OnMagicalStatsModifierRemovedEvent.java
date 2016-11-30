@@ -30,7 +30,7 @@ public class OnMagicalStatsModifierRemovedEvent implements Event {
     private EntityRef character;
 
     /** The magical stats modifier that was removed. */
-    private MagicalStatsModifierComponent pStatsModifier;
+    private MagicalStatsModifierComponent mStatsModifier;
 
     /**
      * Create an instance of this event with the given instigator.
@@ -60,10 +60,10 @@ public class OnMagicalStatsModifierRemovedEvent implements Event {
      * @param pStatsModifier    Physical stats modifier that was removed.
      */
     public OnMagicalStatsModifierRemovedEvent(EntityRef instigator, EntityRef character,
-                                              MagicalStatsModifierComponent pStatsModifier) {
+                                              MagicalStatsModifierComponent mStatsModifier) {
         this.instigator = instigator;
         this.character = character;
-        this.pStatsModifier = pStatsModifier;
+        this.mStatsModifier = mStatsModifier;
     }
 
     /**
@@ -89,7 +89,7 @@ public class OnMagicalStatsModifierRemovedEvent implements Event {
      *
      * @return  The magical stats modifier.
      */
-    public MagicalStatsModifierComponent getPModifier() {
-        return pStatsModifier;
+    public MagicalStatsModifierComponent getMagicModifier() {
+        return mStatsModifier;
     }
 }

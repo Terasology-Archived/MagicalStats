@@ -29,7 +29,7 @@ import org.terasology.magicalstats.event.OnArcaneResistanceChangedEvent;
 import org.terasology.registry.In;
 
 /**
- * This system handles the initialization of physical stats and the impact they have on certain actions.
+ * This system handles the initialization of magical stats and the impact they have on certain actions.
  */
 @RegisterSystem
 public class MagicalStatsSystem extends BaseComponentSystem {
@@ -69,41 +69,41 @@ public class MagicalStatsSystem extends BaseComponentSystem {
     }
 
     /**
-     * When an entity (with physical stats) has been spawned following world generation or respawned following death,
+     * When an entity (with magical stats) has been spawned following world generation or respawned following death,
      * perform some initialization tasks related to their stats.
      *
      * @param event     Event indicating the player has just been spawned.
      * @param player    Reference to the player entity that has been spawned.
-     * @param phyStats  The physical stats of the player entity.
+     * @param magicStats  The magical stats of the player entity.
      */
     @ReceiveEvent
-    public void onPlayerSpawn(OnPlayerSpawnedEvent event, EntityRef player, MagicalStatsComponent phyStats) {
+    public void onPlayerSpawn(OnPlayerSpawnedEvent event, EntityRef player, MagicalStatsComponent magicStats) {
         //TODO: Change the following to affect player Mana from the Magic Module
         // If the player entity has a health component, make sure that the max health is equal to CON * 10, and the
         // current health is equal to the maximum.
         /*if (player.hasComponent(HealthComponent.class)) {
             HealthComponent h = player.getComponent(HealthComponent.class);
-            h.maxHealth = phyStats.constitution * 10;
+            h.maxHealth = magicStats.constitution * 10;
             h.currentHealth = h.maxHealth;
         }*/
     }
 
     /**
-     * When a character entity's (with physical stats) constitution attribute is changed, update the related stats like
+     * When a character entity's (with magical stats) constitution attribute is changed, update the related stats like
      * health.
      *
      * @param event     Event indicating the character's constitution has been altered.
      * @param player    Reference to the character entity that was affected.
-     * @param phyStats  The physical stats of the character entity.
+     * @param magicStats  The magical stats of the character entity.
      */
     @ReceiveEvent
-    public void onCONChanged(OnArcaneResistanceChangedEvent event, EntityRef player, MagicalStatsComponent phyStats) {
+    public void onArcaneRESChanged(OnArcaneResistanceChangedEvent event, EntityRef player, MagicalStatsComponent magicStats) {
         //TODO: Change the following to affect player Mana from the Magic Module
         // If the player entity has a health component, make sure that the max health is equal to CON * 10, and if the
         // current health is above the maximum health, set the current equal to the max.
         /*if (player.hasComponent(HealthComponent.class)) {
             HealthComponent h = player.getComponent(HealthComponent.class);
-            h.maxHealth = phyStats.constitution * 10;
+            h.maxHealth = magicStats.constitution * 10;
 
             if (h.currentHealth > h.maxHealth) {
                 h.currentHealth = h.maxHealth;

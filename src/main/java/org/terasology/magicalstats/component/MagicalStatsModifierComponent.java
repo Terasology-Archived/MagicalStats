@@ -36,31 +36,19 @@ public class MagicalStatsModifierComponent implements Component {
     @Replicate
     public String id;
 
-    /** The strength stat affects how much magical damage an entity does upon striking a target. */
+    /** The intelligence stat affects how much magical damage an entity does upon striking a target. */
     @Replicate
-    public int strength;
+    public int intelligence;
 
-    /** The dexterity stat will affect weapon accuracy and item use speed in the future. */
+    /** The wisdom stat will be implemented in the future. */
     @Replicate
-    public int dexterity;
+    public int wisdom;
 
-    /** The constitution stat affects player health. */
+    /** The willpower stat will be implemented in the future. */
     @Replicate
-    public int constitution;
+    public int willpower;
 
-    /** The agility stat affects player movement speed. */
+    /** The arcaneResistance stat affects an entity's resistance towards magical damage. */
     @Replicate
-    public int agility;
-
-    /** The endurance stat will affect something in the future. */
-    @Replicate
-    public int endurance;
-
-    /** The charisma stat will affect NPC interactions and shopping in the future. */
-    @Replicate
-    public int charisma;
-
-    /** The luck stat will provide benefits to many different actions in the future. */
-    @Replicate
-    public int luck;
+    public int arcaneResistance;
 }
