@@ -1,0 +1,14 @@
+{
+    "id" : "MagicalStats",
+    "version" : "0.1.0-SNAPSHOT",
+    "author" : "Max Borsch",
+    "displayName" : "MagicalStats",
+    "description" : "Adds a basic RPG stat system for several magical attributes or stats.",
+    "dependencies" : [
+        {
+            "id" : "Core",
+            "minVersion" : "1.0.0"
+        }
+    ],
+    "serverSideOnly" : false
+}
