@@ -15,21 +15,8 @@
  */
 package org.terasology.magicalstats.event;
 
-import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.entitySystem.event.Event;
-
 /**
- * Event sent when an entity reaches full mana if previously on less than full mana.
- * Created by monkey on 12/4/16.
+ * Created by monkey on 12/5/16.
  */
-public class FullManaEvent implements Event {
-        private EntityRef instigator;
-
-        public FullManaEvent(EntityRef instigator) {
-            this.instigator = instigator;
-        }
-
-        public EntityRef getInstigator() {
-            return instigator;
-        }
+public class OnManaRefillEvent {
 }
