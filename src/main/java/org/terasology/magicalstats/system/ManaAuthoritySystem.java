@@ -115,6 +115,7 @@ public class ManaAuthoritySystem extends BaseComponentSystem implements UpdateSu
     private void checkRefilled(EntityRef entity, ManaComponent mana, int fillAmount) {
         if (fillAmount > 0) {
             checkRefill(entity, fillAmount, entity);
+            entity.saveComponent(mana);
         }
     }
 
@@ -125,7 +126,7 @@ public class ManaAuthoritySystem extends BaseComponentSystem implements UpdateSu
             if (modifiedAmount > 0) {
                 doFill(entity, modifiedAmount, instigator);
             } else if (modifiedAmount > 0) {
-                doDrain(entity, -modifiedAmount, EngineDamageTypes.HEALING.get(), instigator, EntityRef.NULL);
+                doDrain(entity, -modifiedAmount, EngineDamageTypes.DIRECT.get(), instigator, EntityRef.NULL);
             }
         }
     }
@@ -136,7 +137,7 @@ public class ManaAuthoritySystem extends BaseComponentSystem implements UpdateSu
             int filledAmount = Math.min(mana.currentMana + fillAmount, mana.maxMana) - mana.currentMana;
             mana.currentMana += filledAmount;
             entity.saveComponent(mana);
-            entity.send(new OnManaRegenEvent(fillAmount, filledAmount, instigator));
+            entity.send(new OnManaRefillEvent(fillAmount, filledAmount, instigator));
             if (mana.currentMana == mana.maxMana) {
                 entity.send(new FullManaEvent(instigator));
             }

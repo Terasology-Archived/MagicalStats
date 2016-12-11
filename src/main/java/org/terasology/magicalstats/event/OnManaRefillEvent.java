@@ -15,8 +15,16 @@
  */
 package org.terasology.magicalstats.event;
 
-/**
- * Created by monkey on 12/5/16.
- */
-public class OnManaRefillEvent {
+
+import org.terasology.entitySystem.entity.EntityRef;
+
+public class OnManaRefillEvent extends ManaChangedEvent {
+    private int fullAmount;
+
+    public OnManaRefillEvent(int fullAmount, int changeAmount, EntityRef instigator) {
+        super(instigator, changeAmount);
+        this.fullAmount = fullAmount;
+    }
+
+    public int getFillAmount() { return fullAmount; }
 }

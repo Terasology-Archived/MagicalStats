@@ -34,7 +34,7 @@ public class DoDrainEvent implements Event {
         this(amount, damageType, EntityRef.NULL);
     }
 
-    public DoDrainEvent(int amount, EngineDamageTypes damageType, EntityRef instigator) {
+    public DoDrainEvent(int amount, Prefab damageType, EntityRef instigator) {
         this(amount, damageType, instigator, EntityRef.NULL);
     }
 
