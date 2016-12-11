@@ -23,14 +23,17 @@ import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.logic.console.commandSystem.annotations.Command;
 import org.terasology.logic.console.commandSystem.annotations.CommandParam;
+import org.terasology.logic.console.commandSystem.annotations.Sender;
 import org.terasology.logic.permission.PermissionManager;
 import org.terasology.logic.players.LocalPlayer;
 import org.terasology.magicalstats.component.MagicalStatsComponent;
+import org.terasology.magicalstats.component.ManaComponent;
 import org.terasology.magicalstats.event.OnArcaneResistanceChangedEvent;
 import org.terasology.magicalstats.event.OnIntelligenceChangedEvent;
 import org.terasology.magicalstats.event.OnMagicalStatChangedEvent;
 import org.terasology.magicalstats.event.OnWillpowerChangedEvent;
 import org.terasology.magicalstats.event.OnWisdomChangedEvent;
+import org.terasology.network.ClientComponent;
 import org.terasology.registry.CoreRegistry;
 import org.terasology.registry.In;
 
@@ -190,4 +193,31 @@ public class MagicalStatsSystemCommands extends BaseComponentSystem {
         return output;
     }
 
+    /**
+     * Returns the current amount of mana in a character
+     */
+    @Command(shortDescription = "Returns amount of mana", requiredPermission= PermissionManager.DEBUG_PERMISSION)
+    public String returnManaValue(@Sender EntityRef clientEntity) {
+        ClientComponent clientComp = clientEntity.getComponent(ClientComponent.class);
+        ManaComponent mana = clientComp.character.getComponent(ManaComponent.class);
+        if (mana != null) {
+            return "Your current mana is:" + mana.currentMana + "its max is:" + mana.maxMana + "and its regeneration rate is:" + mana.manaRegenRate;
+        } else {
+            return "No mana to be found.";
+        }
+    }
+    /**
+     * Sets the amount of mana regen
+     */
+    @Command(shortDescription = "Sets Mana regen rate", requiredPermission = PermissionManager.SERVER_MANAGEMENT_PERMISSION)
+    public String setManaRegen(@Sender EntityRef client, @CommandParam("rate") float rate) {
+        ClientComponent clientComp = client.getComponent(ClientComponent.class);
+        ManaComponent mana = clientComp.character.getComponent(ManaComponent.class);
+        float oldRegenRate = mana.manaRegenRate;
+        if (mana != null) {
+            mana.manaRegenRate = rate;
+            clientComp.character.saveComponent(mana);
+        }
+        return "Mana regen changed from " + oldRegenRate + " to " + rate;
+    }
 }

@@ -16,19 +16,26 @@
 package org.terasology.magicalstats.event;
 
 import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.entitySystem.prefab.Prefab;
 
-
-public class OnManaRegenEvent {
-
+public class OnDrainedEvent extends ManaChangedEvent {
+    private Prefab damageType;
     private int fullAmount;
 
-    public OnManaRegenEvent(int fullAmount, int changeAmount, EntityRef instigator) {
-        super(instigator, changeAmount);
+    public OnDrainedEvent(int fullAmount, int change, Prefab damageType, EntityRef instigator) {
+        super(instigator, change);
         this.fullAmount = fullAmount;
+        this.damageType = damageType;
     }
 
-    public int getRefillAmount() {
+    public int getDrainAmount() {
+
         return fullAmount;
+    }
+
+    public Prefab getType() {
+
+        return damageType;
     }
 
 }

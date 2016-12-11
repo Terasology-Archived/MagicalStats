@@ -18,11 +18,9 @@ package org.terasology.magicalstats.component;
 import org.terasology.entitySystem.Component;
 import org.terasology.network.Replicate;
 import org.terasology.rendering.nui.properties.TextField;
-/**
- * Created by monkey on 12/5/16.
- */
+
 public class ManaComponent implements Component {
-//Configuration options
+    //Configuration options
     @Replicate
     public int maxMana = 20;
     @Replicate
