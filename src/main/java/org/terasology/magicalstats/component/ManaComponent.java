@@ -38,13 +38,4 @@ public class ManaComponent implements Component {
 
     // ManaRegen information
     public long nextRegenTick;
-
-    public ManaComponent(int maxMana, float manaRegenRate, float waitBeforeManaRegen) {
-        this.maxMana = maxMana;
-        this.currentMana = maxMana;
-        this.manaRegenRate = manaRegenRate;
-        this.waitBeforeManaRegen = waitBeforeManaRegen;
-    }
-
-
 }
