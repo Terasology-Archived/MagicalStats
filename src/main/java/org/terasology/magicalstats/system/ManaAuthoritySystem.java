@@ -29,27 +29,27 @@ import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.entitySystem.systems.UpdateSubscriberSystem;
 import org.terasology.logic.characters.CharacterMovementComponent;
-import org.terasology.logic.characters.MovementMode;
 import org.terasology.logic.characters.events.AttackEvent;
+import org.terasology.logic.characters.MovementMode;
 import org.terasology.logic.health.EngineDamageTypes;
 import org.terasology.logic.inventory.ItemComponent;
+import org.terasology.magicalstats.component.ManaComponent;
+import org.terasology.magicalstats.event.BeforeDrainedEvent;
+import org.terasology.magicalstats.event.BeforeManaRefillEvent;
+import org.terasology.magicalstats.event.BeforeManaRegenEvent;
+import org.terasology.magicalstats.event.DoDrainEvent;
+import org.terasology.magicalstats.event.DoManaRefillEvent;
+import org.terasology.magicalstats.event.DoManaRegenEvent;
+import org.terasology.magicalstats.event.FullManaEvent;
+import org.terasology.magicalstats.event.ManaChangedEvent;
+import org.terasology.magicalstats.event.OnDrainedEvent;
+import org.terasology.magicalstats.event.OnManaRefillEvent;
+import org.terasology.magicalstats.event.OnManaRegenEvent;
 import org.terasology.math.TeraMath;
 import org.terasology.protobuf.EntityData;
 import org.terasology.registry.In;
 import org.terasology.utilities.random.FastRandom;
 import org.terasology.utilities.random.Random;
-import org.terasology.magicalstats.component.ManaComponent;
-import org.terasology.magicalstats.event.BeforeManaRegenEvent;
-import org.terasology.magicalstats.event.BeforeManaRefillEvent;
-import org.terasology.magicalstats.event.OnDrainedEvent;
-import org.terasology.magicalstats.event.DoManaRefillEvent;
-import org.terasology.magicalstats.event.DoManaRegenEvent;
-import org.terasology.magicalstats.event.DoDrainEvent;
-import org.terasology.magicalstats.event.ManaChangedEvent;
-import org.terasology.magicalstats.event.OnManaRefillEvent;
-import org.terasology.magicalstats.event.FullManaEvent;
-import org.terasology.magicalstats.event.OnManaRegenEvent;
-import org.terasology.magicalstats.event.BeforeDrainedEvent;
 
 
 
@@ -60,8 +60,6 @@ public class ManaAuthoritySystem extends BaseComponentSystem implements UpdateSu
 
     @In
     private org.terasology.engine.Time time;
-
-    private Random random = new FastRandom();
 
     @Override
     public void update(float delta) {
@@ -101,6 +99,9 @@ public class ManaAuthoritySystem extends BaseComponentSystem implements UpdateSu
                 damageType = item.damageType;
             }
         }
+
+        targetEntity.send(new DoDrainEvent(drain, damageType, event.getInstigator(), event.getDirectCause()));
+        event.consume();
     }
 
     private int manaRegen(ManaComponent mana, int fillAmount) {
@@ -126,7 +127,7 @@ public class ManaAuthoritySystem extends BaseComponentSystem implements UpdateSu
             if (modifiedAmount > 0) {
                 doFill(entity, modifiedAmount, instigator);
             } else if (modifiedAmount > 0) {
-                doDrain(entity, -modifiedAmount, EngineDamageTypes.DIRECT.get(), instigator, EntityRef.NULL);
+                doDrain(entity, -modifiedAmount, EngineDamageTypes.DIRECT.get(), instigator);
             }
         }
     }
@@ -144,7 +145,7 @@ public class ManaAuthoritySystem extends BaseComponentSystem implements UpdateSu
         }
     }
 
-    private void doDrain(EntityRef entity, int drainAmount, Prefab damageType, EntityRef instigator, EntityRef directCause) {
+    private void doDrain(EntityRef entity, int drainAmount, Prefab damageType, EntityRef instigator) {
         ManaComponent mana = entity.getComponent(ManaComponent.class);
         CharacterMovementComponent characterMovementComponent = entity.getComponent(CharacterMovementComponent.class);
         boolean ghost = false;
@@ -170,7 +171,7 @@ public class ManaAuthoritySystem extends BaseComponentSystem implements UpdateSu
         if (!beforeDrain.isConsumed()) {
             int drainAmount = TeraMath.floorToInt(beforeDrain.getResultValue());
             if (drainAmount > 0) {
-                doDrain(entity, drainAmount, damageType, instigator, directCause);
+                doDrain(entity, drainAmount, damageType, instigator);
             } else {
                 doFill(entity, -drainAmount, instigator);
             }
