@@ -18,7 +18,7 @@ package org.terasology.magicalstats.event;
 import org.terasology.entitySystem.entity.EntityRef;
 
 
-public class OnManaRegenEvent {
+public class OnManaRegenEvent extends ManaChangedEvent {
 
     private int fullAmount;
 

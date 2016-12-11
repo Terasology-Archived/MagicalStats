@@ -3,6 +3,7 @@
         "intelligence" : 1,
         "willpower" : 1,
         "wisdom" : 1,
-        "arcaneResistance" : 1
+        "arcaneResistance" : 1,
+        "mana" : 5
     }
 }

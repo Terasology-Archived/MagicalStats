@@ -119,7 +119,7 @@ public class ManaAuthoritySystem extends BaseComponentSystem implements UpdateSu
     }
 
     private void checkRefill(EntityRef entity, int manaFillAmount, EntityRef instigator) {
-        BeforeManaRefillEvent beforeRefill = entity.send(new BeforeManaRefillEvent(manaFillAmount, instigator))
+        BeforeManaRefillEvent beforeRefill = entity.send(new BeforeManaRefillEvent(manaFillAmount, instigator));
         if (!beforeRefill.isConsumed()) {
             int modifiedAmount = calculateTotal(beforeRefill.getBaseManaRegen(), beforeRefill.getMultipliers(), beforeRefill.getModifiers());
             if (modifiedAmount > 0) {
@@ -160,8 +160,8 @@ public class ManaAuthoritySystem extends BaseComponentSystem implements UpdateSu
     }
 
     @ReceiveEvent
-    public void onDrain(doDrain event, EntityRef entity) {
-        checkDrain(entity, event.getAmount(), event.getDrainType(), event.getInstigator(), event.getDirectCause());
+    public void onDrain(DoDrainEvent event, EntityRef entity) {
+        checkDrain(entity, event.getAmount(), event.getDamageType(), event.getInstigator(), event.getDirectCause());
     }
 
     private void checkDrain(EntityRef entity, int amount, Prefab damageType, EntityRef instigator, EntityRef directCause) {

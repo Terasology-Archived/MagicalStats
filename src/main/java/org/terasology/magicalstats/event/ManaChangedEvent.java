@@ -31,6 +31,7 @@ public class ManaChangedEvent implements Event {
     public EntityRef getInstigator() {
         return instigator;
     }
+
     public int getManaChange() {
         return change;
     }
