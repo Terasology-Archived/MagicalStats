@@ -16,10 +16,11 @@
 package org.terasology.magicalstats.event;
 
 import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.entitySystem.event.Event;
 import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.logic.health.EngineDamageTypes;
 
-public class DoDrainEvent {
+public class DoDrainEvent implements Event {
     private int amount;
     private Prefab damageType;
     private EntityRef instigator;
@@ -33,7 +34,7 @@ public class DoDrainEvent {
         this(amount, damageType, EntityRef.NULL);
     }
 
-    public DoDrainEvent(int amount, Prefab damageType, EntityRef instigator) {
+    public DoDrainEvent(int amount, EngineDamageTypes damageType, EntityRef instigator) {
         this(amount, damageType, instigator, EntityRef.NULL);
     }
 

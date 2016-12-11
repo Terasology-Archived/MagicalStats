@@ -4,6 +4,8 @@
         "willpower" : 1,
         "wisdom" : 1,
         "arcaneResistance" : 1,
-        "Mana" : {}
-    }
+        "mana" : 5
+
+    },
+    "Mana" : {}
 }

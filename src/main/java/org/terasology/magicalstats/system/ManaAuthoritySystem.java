@@ -86,13 +86,13 @@ public class ManaAuthoritySystem extends BaseComponentSystem implements UpdateSu
      */
     @ReceiveEvent(components = ManaComponent.class, netFilter = RegisterMode.AUTHORITY)
     public void onDrainEntity(AttackEvent event, EntityRef targetEntity) {
-        DrainEntity(event, targetEntity);
+        drainEntity(event, targetEntity);
     }
 
-    public void DrainEntity(AttackEvent event, EntityRef targetEntity) {
+    static void drainEntity(AttackEvent event, EntityRef targetEntity) {
         int drain = 1;
         //TODO:Fix this
-        Prefab damageType = EngineDamageTypes.PHYSICAL.get();
+        Prefab damageType = EngineDamageTypes.DIRECT.get();
         // Calculate drain from item
         ItemComponent item = event.getDirectCause().getComponent(ItemComponent.class);
         if (item != null) {

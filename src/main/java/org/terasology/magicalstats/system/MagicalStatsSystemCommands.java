@@ -24,15 +24,12 @@ import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.logic.console.commandSystem.annotations.Command;
 import org.terasology.logic.console.commandSystem.annotations.CommandParam;
 import org.terasology.logic.console.commandSystem.annotations.Sender;
+import org.terasology.logic.health.EngineDamageTypes;
 import org.terasology.logic.permission.PermissionManager;
 import org.terasology.logic.players.LocalPlayer;
 import org.terasology.magicalstats.component.MagicalStatsComponent;
 import org.terasology.magicalstats.component.ManaComponent;
-import org.terasology.magicalstats.event.OnArcaneResistanceChangedEvent;
-import org.terasology.magicalstats.event.OnIntelligenceChangedEvent;
-import org.terasology.magicalstats.event.OnMagicalStatChangedEvent;
-import org.terasology.magicalstats.event.OnWillpowerChangedEvent;
-import org.terasology.magicalstats.event.OnWisdomChangedEvent;
+import org.terasology.magicalstats.event.*;
 import org.terasology.network.ClientComponent;
 import org.terasology.registry.CoreRegistry;
 import org.terasology.registry.In;
@@ -201,7 +198,7 @@ public class MagicalStatsSystemCommands extends BaseComponentSystem {
         ClientComponent clientComp = clientEntity.getComponent(ClientComponent.class);
         ManaComponent mana = clientComp.character.getComponent(ManaComponent.class);
         if (mana != null) {
-            return "Your current mana is:" + mana.currentMana + "its max is:" + mana.maxMana + "and its regeneration rate is:" + mana.manaRegenRate;
+            return "Your current mana is: " + mana.currentMana + " its max is: " + mana.maxMana + " and its regeneration rate is: " + mana.manaRegenRate;
         } else {
             return "No mana to be found.";
         }
@@ -219,5 +216,12 @@ public class MagicalStatsSystemCommands extends BaseComponentSystem {
             clientComp.character.saveComponent(mana);
         }
         return "Mana regen changed from " + oldRegenRate + " to " + rate;
+    }
+
+    @Command(shortDescription = "Reduces mana", requiredPermission = PermissionManager.CHEAT_PERMISSION)
+    public String emptyMana(@Sender EntityRef client, @CommandParam("amount") int amount) {
+        ClientComponent clientComp = client.getComponent(ClientComponent.class);
+        clientComp.character.send(new DoDrainEvent(amount, EngineDamageTypes.DIRECT.get(), clientComp.character));
+        return "mana reduced by " + amount;
     }
 }
