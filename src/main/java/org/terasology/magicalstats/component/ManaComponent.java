@@ -24,7 +24,7 @@ public class ManaComponent implements Component {
     @Replicate
     public int maxMana = 20;
     @Replicate
-    public float manaRegenRate;
+    public float manaRegenRate = 1;
     @Replicate
     public float waitBeforeManaRegen;
 

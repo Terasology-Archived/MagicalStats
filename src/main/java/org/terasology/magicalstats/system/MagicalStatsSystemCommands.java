@@ -194,7 +194,7 @@ public class MagicalStatsSystemCommands extends BaseComponentSystem {
      * Returns the current amount of mana in a character
      */
     @Command(shortDescription = "Returns amount of mana", requiredPermission= PermissionManager.DEBUG_PERMISSION)
-    public String returnManaValue(@Sender EntityRef clientEntity) {
+    public String showMana(@Sender EntityRef clientEntity) {
         ClientComponent clientComp = clientEntity.getComponent(ClientComponent.class);
         ManaComponent mana = clientComp.character.getComponent(ManaComponent.class);
         if (mana != null) {
@@ -219,7 +219,7 @@ public class MagicalStatsSystemCommands extends BaseComponentSystem {
     }
 
     @Command(shortDescription = "Reduces mana", requiredPermission = PermissionManager.CHEAT_PERMISSION)
-    public String emptyMana(@Sender EntityRef client, @CommandParam("amount") int amount) {
+    public String reduceMana(@Sender EntityRef client, @CommandParam("amount") int amount) {
         ClientComponent clientComp = client.getComponent(ClientComponent.class);
         clientComp.character.send(new DoDrainEvent(amount, EngineDamageTypes.DIRECT.get(), clientComp.character));
         return "mana reduced by " + amount;

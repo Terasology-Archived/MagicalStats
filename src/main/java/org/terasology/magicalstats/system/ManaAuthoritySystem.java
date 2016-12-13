@@ -33,6 +33,7 @@ import org.terasology.logic.characters.events.AttackEvent;
 import org.terasology.logic.characters.MovementMode;
 import org.terasology.logic.health.EngineDamageTypes;
 import org.terasology.logic.inventory.ItemComponent;
+import org.terasology.magicalstats.component.MagicalStatsComponent;
 import org.terasology.magicalstats.component.ManaComponent;
 import org.terasology.magicalstats.event.BeforeDrainedEvent;
 import org.terasology.magicalstats.event.BeforeManaRefillEvent;
@@ -176,6 +177,15 @@ public class ManaAuthoritySystem extends BaseComponentSystem implements UpdateSu
                 doFill(entity, -drainAmount, instigator);
             }
         }
+    }
+
+    @ReceiveEvent
+    public void OnWisdomChanged(EntityRef character) {
+        ManaComponent mana = character.getComponent(ManaComponent.class);
+        MagicalStatsComponent stats = character.getComponent(MagicalStatsComponent.class);
+        int newValue = stats.wisdom * 10;
+        mana.maxMana = newValue;
+        character.saveComponent(mana);
     }
 
     private int calculateTotal(int base, TFloatList multipliers, TIntList modifiers) {
