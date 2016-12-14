@@ -20,15 +20,16 @@ import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.registry.In;
 import org.terasology.rendering.nui.NUIManager;
-/**
- * Created by monkey on 12/5/16.
- */
+
 @RegisterSystem(RegisterMode.CLIENT)
 public class ManaClientSystem extends BaseComponentSystem {
 
     @In
     private NUIManager nuiManager;
- @Override
- public void initialise() { nuiManager.getHUD().addHUDElement("ManaHud");}
 
+    @Override
+    public void initialise() {
+        // TODO: Implement
+        nuiManager.getHUD().addHUDElement("ManaHud");
+    }
 }

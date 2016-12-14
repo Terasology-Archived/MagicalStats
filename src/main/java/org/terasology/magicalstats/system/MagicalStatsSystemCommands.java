@@ -29,7 +29,12 @@ import org.terasology.logic.permission.PermissionManager;
 import org.terasology.logic.players.LocalPlayer;
 import org.terasology.magicalstats.component.MagicalStatsComponent;
 import org.terasology.magicalstats.component.ManaComponent;
-import org.terasology.magicalstats.event.*;
+import org.terasology.magicalstats.event.DoDrainEvent;
+import org.terasology.magicalstats.event.OnArcaneResistanceChangedEvent;
+import org.terasology.magicalstats.event.OnIntelligenceChangedEvent;
+import org.terasology.magicalstats.event.OnMagicalStatChangedEvent;
+import org.terasology.magicalstats.event.OnWillpowerChangedEvent;
+import org.terasology.magicalstats.event.OnWisdomChangedEvent;
 import org.terasology.network.ClientComponent;
 import org.terasology.registry.CoreRegistry;
 import org.terasology.registry.In;
@@ -51,15 +56,17 @@ public class MagicalStatsSystemCommands extends BaseComponentSystem {
      * Print all of the current base magical stats of the local player to the console window.
      */
     @Command(shortDescription = "Show all magical stats of the local player", requiredPermission = PermissionManager.CHEAT_PERMISSION)
-    public void getPlayerMagicalStats() {
+    public String getPlayerMagicalStats() {
         // Get the local player's character entity, and get the MagicalStatsComponent from it to print the base stat
         // attributes.
         if (CoreRegistry.get(LocalPlayer.class).getCharacterEntity().hasComponent(MagicalStatsComponent.class)) {
             MagicalStatsComponent p = CoreRegistry.get(LocalPlayer.class).getCharacterEntity().
                     getComponent(MagicalStatsComponent.class);
 
-            logger.info("INT: " + p.intelligence + " WIS: " + p.wisdom + " WIL: " + p.willpower + " RES: " + p.arcaneResistance);
+            return "INT: " + p.intelligence + " WIS: " + p.wisdom + " WIL: " + p.willpower + " RES: " + p.arcaneResistance;
         }
+
+        return "Couldn't find any magical stats on the local player :(";
     }
 
     /**
